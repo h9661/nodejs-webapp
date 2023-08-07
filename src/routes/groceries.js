@@ -1,4 +1,4 @@
-const { Router } = require("express");
+const { Router, request } = require("express");
 
 const router = Router();
 
@@ -17,34 +17,19 @@ let groceryList = [
     },
 ];
 
-router.get(
-    "/",
-    (req, res, next) => {
-        console.log("before handling get request");
-        next();
-    },
-    (req, res, next) => {
-        res.send(groceryList);
-    }
-);
+router.get("/", (req, res, next) => {
+    res.cookie("visited", true, {
+        maxAge: 100000,
+    });
+    res.send(groceryList);
+});
 
 router.get("/:item", (req, res, next) => {
+    console.log(req.cookies);
+
     const item = req.params.item;
     let gItem = groceryList.filter((g) => {
         if (g.item == item) return true;
-        else return false;
-    });
-    res.send(gItem);
-
-    next();
-});
-
-router.get("/:item/:quantity", (req, res, next) => {
-    const { item } = req.params;
-    const { quantity } = req.params;
-
-    let gItem = groceryList.filter((g) => {
-        if (g.item == item && g.quantity == quantity) return true;
         else return false;
     });
     res.send(gItem);
