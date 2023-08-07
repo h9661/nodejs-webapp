@@ -18,3 +18,8 @@ https://www.youtube.com/watch?v=o4RLiTIOfhQ&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1
 4. router parameters/query string
 
 https://velog.io/@unknown9732/Express.js-%EC%97%90%EC%84%9C-Route-parameter-Query-string-%EB%B0%9B%EA%B8%B0
+
+5. router
+
+https://inpa.tistory.com/entry/EXPRESS-%F0%9F%93%9A-%EB%9D%BC%EC%9A%B0%ED%84%B0-Router
+
