@@ -6,7 +6,7 @@ app.use(express.json());
 app.use((req, res, next) => {
     console.log(`${req.method}:${req.url}`);
     next();
-})
+});
 
 let groceryList = [
     {
@@ -33,6 +33,34 @@ app.get(
         res.send(groceryList);
     }
 );
+
+app.get("/groceries/:item", (req, res, next) => {
+    const item = req.params.item;
+    let gItem = groceryList.filter((g) => {
+        if(g.item == item)
+            return true;
+        else
+            return false;
+    })
+    res.send(gItem);
+
+    next();
+});
+
+app.get("/groceries/:item/:quentity", (req, res, next) => {
+    const item = req.params.item;
+    const quantity = req.params.quentity;
+
+    let gItem = groceryList.filter((g) => {
+        if(g.item == item && g.quantity == quantity)
+            return true;
+        else
+            return false;
+    })
+    res.send(gItem);
+
+    next();
+});
 
 app.post("/groceries", (req, res, next) => {
     groceryList.push(req.body);
