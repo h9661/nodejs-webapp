@@ -39,9 +39,9 @@ router.get("/:item", (req, res, next) => {
     next();
 });
 
-router.get("/:item/:quentity", (req, res, next) => {
-    const item = req.params.item;
-    const quantity = req.params.quentity;
+router.get("/:item/:quantity", (req, res, next) => {
+    const { item } = req.params;
+    const { quantity } = req.params;
 
     let gItem = groceryList.filter((g) => {
         if (g.item == item && g.quantity == quantity) return true;

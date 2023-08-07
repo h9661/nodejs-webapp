@@ -4,20 +4,34 @@ const router = Router();
 
 let supermarket = [
     {
-        store: "Whole Foods"
+        id: 1,
+        store: "Whole Foods",
+        miles: 0.6,
     },
     {
-        store: "Trader Joes"
+        id: 2,
+        store: "Trader Joes",
+        miles: 1.0,
     },
     {
-        store: "Albertsons"
-    }
-]
+        id: 3,
+        store: "Albertsons",
+        miles: 1.5,
+    },
+];
 
-router.get('/', (req, res, next) => {
-    res.send(supermarket);
-})
+router.get("/", (req, res, next) => {
+    const { miles } = req.query;
+    if (miles && !isNaN(parseInt(miles))) {
+        res.send(
+            supermarket.filter((ele) => {
+                if (ele.miles <= miles) return true;
+                else return false;
+            })
+        );
+    } else res.send(supermarket);
+});
 
 module.exports = {
-    marketRouter: router
-}
+    marketRouter: router,
+};
