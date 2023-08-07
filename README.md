@@ -6,7 +6,6 @@
 
 # 학습 정리
 1. middleware
-
 https://velog.io/@wjddnjswjd12/node.js-express-%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4%EB%9E%80
 
 2. get
