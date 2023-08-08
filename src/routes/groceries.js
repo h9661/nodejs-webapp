@@ -24,17 +24,30 @@ router.get("/", (req, res, next) => {
     res.send(groceryList);
 });
 
+router.post("/", (req, res, next) => {
+    groceryList.push(req.body);
+    res.sendStatus(201);
+});
+
 router.get("/cart", (req, res, next) => {
     const { cart } = req.session;
+    const { item } = req.query;
 
     if (!cart) {
         res.send("no items in cart");
     } else {
-        res.send(cart);
+        if (item) {
+            res.send(
+                cart.items.filter((ele) => {
+                    if (ele.item == item) return true;
+                    else return false;
+                })
+            );
+        } else res.send(cart);
     }
 });
 
-router.post("/cart/item", (req, res, next) => {
+router.post("/cart", (req, res, next) => {
     const { item, quantity } = req.body;
     const { cart } = req.session;
 
@@ -63,11 +76,6 @@ router.get("/:item", (req, res, next) => {
     res.send(gItem);
 
     next();
-});
-
-router.post("/", (req, res, next) => {
-    groceryList.push(req.body);
-    res.sendStatus(201);
 });
 
 module.exports = {

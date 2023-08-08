@@ -6,7 +6,8 @@
 - [x] query parameters
 - [x] cookie
 - [x] session
-- [ ] session face authentication
+- [x] session fake authentication
+- [ ] mongodb connection
 
 
 

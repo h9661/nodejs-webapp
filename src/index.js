@@ -1,6 +1,7 @@
 const express = require("express");
 const { groceryRouter } = require("./routes/groceries");
 const { marketRouter } = require("./routes/markets");
+const { authRouter } = require("./routes/auth");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
@@ -20,6 +21,15 @@ app.use((req, res, next) => {
     console.log(`${req.method}:${req.url}`);
     next();
 });
+
+app.use("/api/v1/auth", authRouter);
+
+// app.use((req, res, next) => {
+//     if (req.session.user) next();
+//     else {
+//         res.send(401);
+//     }
+// });
 
 app.use("/api/v1/groceries", groceryRouter);
 app.use("/api/v1/markets", marketRouter);
