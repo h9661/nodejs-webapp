@@ -1,7 +1,13 @@
 # nodejs-webapp
 
 - [x] express가 뭔지 학습
-- [x] 간단하게 서버 만들어보기.
+- [x] router
+- [x] router parameters
+- [x] query parameters
+- [x] cookie
+- [x] session
+- [ ] session face authentication
+
 
 
 # 학습 정리
