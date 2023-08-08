@@ -7,7 +7,8 @@
 - [x] cookie
 - [x] session
 - [x] session fake authentication
-- [ ] mongodb connection
+- [x] mongodb connection
+- [ ] hashing password
 
 
 
@@ -34,3 +35,4 @@ https://inpa.tistory.com/entry/EXPRESS-%F0%9F%93%9A-%EB%9D%BC%EC%9A%B0%ED%84%B0-
 
 https://cotak.tistory.com/87
 
+7. ipv4, ipv6 표기 방식의 차이
