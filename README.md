@@ -35,4 +35,12 @@ https://inpa.tistory.com/entry/EXPRESS-%F0%9F%93%9A-%EB%9D%BC%EC%9A%B0%ED%84%B0-
 
 https://cotak.tistory.com/87
 
-7. ipv4, ipv6 표기 방식의 차이
+7. ipv4, ipv6 표기 방식의 차이. mongodb 연결할 때 이 차이 까먹어서 연결 못했음 ㅋㅋㅋ
+
+x.x.x.x
+x:x:x:x:x:x:x:x
+
+8. mongodb 정리
+
+https://inpa.tistory.com/entry/MONGO-%F0%9F%93%9A-%EB%AA%BD%EA%B3%A0%EB%94%94%EB%B9%84%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B4%80%EA%B3%84-%EB%AA%A8%EB%8D%B8%EB%A7%81-%F0%9F%92%AF-%EC%A0%95%EB%A6%AC
+
