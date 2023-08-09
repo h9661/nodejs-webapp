@@ -9,7 +9,8 @@
 - [x] session fake authentication
 - [x] mongodb connection
 - [x] hashing password
-- [ ] authentication with PassportJS
+- [x] authentication with PassportJS
+- [ ] serialize & deserialize User
 
 
 # 학습 정리
@@ -49,4 +50,8 @@ https://inpa.tistory.com/entry/MONGO-%F0%9F%93%9A-%EB%AA%BD%EA%B3%A0%EB%94%94%EB
 9. mongodb CRUD query 명령어 학습
 
 https://inpa.tistory.com/entry/MONGO-%F0%9F%93%9A-%EB%AA%BD%EA%B3%A0%EB%94%94%EB%B9%84-%EC%BF%BC%EB%A6%AC-%EC%A0%95%EB%A6%AC
+
+10. passport-local
+
+https://velog.io/@jakeseo_me/%EB%B2%88%EC%97%AD-passport-local%EC%97%90-%EB%8C%80%ED%95%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%A8%EB%93%A0-%EA%B2%83
 
