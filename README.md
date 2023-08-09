@@ -11,6 +11,7 @@
 - [x] hashing password
 - [x] authentication with PassportJS
 - [x] serialize & deserialize User
+- [x] groceries memory based에서 db collection으로 만들기
 - [ ] session stores
 
 
@@ -95,3 +96,22 @@ A메모리에 저장된 오브젝트를 직렬화하여 텍스트 파일로 저�
 - 간결하고 가독성이 좋음
 - HTML과 자바스크립트가 연동되어 빠른 응답이 필요한 웹 환경에서 주로 사용
 
+```
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});              │
+                 │
+                 │
+                 └─────────────────┬──→ saved to session
+                                   │    req.session.passport.user = {id: '..'}
+                                   │
+                                   ↓
+passport.deserializeUser(function(id, done) {
+                   ┌───────────────┘
+                   │
+                   ↓
+    User.findById(id, function(err, user) {
+        done(err, user);
+    });            └──────────────→ user object attaches to the request as req.user
+});
+```

@@ -1,35 +1,21 @@
 const { Router } = require("express");
+const Grocery = require("../database/schemas/Grocery");
 
 const router = Router();
 
-let groceryList = [
-    {
-        item: "milk",
-        quantity: 2,
-    },
-    {
-        item: "cereal",
-        quantity: 2,
-    },
-    {
-        item: "cereal",
-        quantity: 2,
-    },
-];
-
-router.get("/", (req, res, next) => {
-    res.cookie("visited", true, {
-        maxAge: 100000,
-    });
-    res.send(groceryList);
+router.get("/", async (req, res) => {
+    res.send(await Grocery.find({}));
 });
 
-router.post("/", (req, res, next) => {
-    groceryList.push(req.body);
-    res.sendStatus(201);
+router.post("/", async (req, res) => {
+    const { item, quantity } = req.body;
+    if (item && quantity) {
+        await Grocery.create({ item, quantity });
+        res.sendStatus(201);
+    } else res.sendStatus(401);
 });
 
-router.get("/cart", (req, res, next) => {
+router.get("/cart", (req, res) => {
     const { cart } = req.session;
     const { item } = req.query;
 
@@ -47,7 +33,7 @@ router.get("/cart", (req, res, next) => {
     }
 });
 
-router.post("/cart", (req, res, next) => {
+router.post("/cart", (req, res) => {
     const { item, quantity } = req.body;
     const { cart } = req.session;
 
@@ -65,17 +51,10 @@ router.post("/cart", (req, res, next) => {
     res.send(201);
 });
 
-router.get("/:item", (req, res, next) => {
-    console.log(req.cookies);
+router.get("/:item", async (req, res) => {
+    const { item } = req.params;
 
-    const item = req.params.item;
-    let gItem = groceryList.filter((g) => {
-        if (g.item == item) return true;
-        else return false;
-    });
-    res.send(gItem);
-
-    next();
+    res.send(await Grocery.find({ item: item }));
 });
 
 module.exports = {
