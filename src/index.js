@@ -29,6 +29,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api/v1/auth", authRouter);
+
+
+
+app.use((req, res, next) => {
+    console.log("authenticating user");
+    console.log(`USER INFO: ${req.user}`);
+    if (req.user) next();
+    else res.send(401);
+});
+
 app.use("/api/v1/groceries", groceryRouter);
 
 app.listen(port, () => {
