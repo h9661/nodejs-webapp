@@ -5,7 +5,7 @@ const passport = require("passport");
 const MongoStore = require("connect-mongo");
 
 require("./database");
-//require("./strategies/local");
+require("./strategies/local");
 require("./strategies/discord");
 
 const { groceryRouter } = require("./routes/groceries");

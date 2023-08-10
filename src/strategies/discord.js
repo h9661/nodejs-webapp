@@ -1,6 +1,6 @@
 const passport = require("passport");
 const { Strategy } = require("passport-discord");
-const DiscordUser = require("../database/schemas/DiscordUser");
+const User = require("../database/schemas/User");
 
 passport.serializeUser((user, done) => {
     console.log("Serializing User");
@@ -12,7 +12,7 @@ passport.deserializeUser(async (id, done) => {
     console.log("Deserializing User");
     console.log(id);
 
-    const userDB = await DiscordUser.findById(id);
+    const userDB = await User.findById(id);
     console.log(userDB);
 
     if (userDB) done(null, userDB);
@@ -31,8 +31,8 @@ passport.use(
             console.log(accessToken, refreshToken);
             console.log(profile);
 
-            const discordUserDB = await DiscordUser.findOne({
-                discordId: profile.id,
+            const discordUserDB = await User.findOne({
+                username: profile.id,
             });
 
             if (discordUserDB) {
@@ -41,7 +41,8 @@ passport.use(
             } else {
                 console.log("Created New Discord User");
                 const newDiscordUser = await DiscordUser.create({
-                    discordId: profile.id,
+                    username: profile.id,
+                    password: "DISCORD",
                 });
 
                 done(null, newDiscordUser);

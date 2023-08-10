@@ -14,7 +14,8 @@
 - [x] groceries memory based에서 db collection으로 만들기
 - [x] session store in database
 - [x] auth discord.
-- [ ] discord user와 local user 통합
+- [x] discord user와 local user 통합
+- [ ] tdd 경험하기
 
 
 # 학습 정리
@@ -119,4 +120,6 @@ passport.deserializeUser(function(id, done) {
 ```
 
 12. auth란 무엇인가?
+
+https://tecoble.techcourse.co.kr/post/2021-07-10-understanding-oauth/
 
