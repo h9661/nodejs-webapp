@@ -1,5 +1,5 @@
 const passport = require("passport");
-const { Strategy } = require("passport-discord");
+const { Strategy } = require("passport-google-oauth20");
 const User = require("../database/schemas/User");
 
 passport.serializeUser((user, done) => {
@@ -22,10 +22,11 @@ passport.deserializeUser(async (id, done) => {
 passport.use(
     new Strategy(
         {
-            clientID: "1139081248107667486",
-            clientSecret: "LO71OsaI3ELmXjigNJFSTiENxZPt6xBr",
-            callbackURL: "http://localhost:3000/api/v1/auth/discord/redirect",
-            scope: ["identify"],
+            clientID:
+                "738199081163-1001o623pojlncvi97k4hiancdibnajp.apps.googleusercontent.com",
+            clientSecret: "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",
+            callbackURL: "http://localhost:3000/api/v1/auth/google/redirect",
+            scope: ["profile"],
         },
         async (accessToken, refreshToken, profile, done) => {
             console.log(accessToken, refreshToken);
@@ -36,17 +37,17 @@ passport.use(
             });
 
             if (userDB) {
-                console.log("Discord User Already Exist");
+                console.log("Google User Already Exist");
                 done(null, userDB);
             } else {
-                console.log("Created New Discord User");
-                const newDiscordUser = await User.create({
+                console.log("Create New Google User");
+                const newGoogleUser = await User.create({
                     username: profile.id,
-                    password: "DISCORD",
-                    email: `${profile.id}@DISCORD.com`,
+                    password: "GOOGLE",
+                    email: `${profile.id}@GOOGLE.com`,
                 });
 
-                done(null, newDiscordUser);
+                done(null, newGoogleUser);
             }
         }
     )

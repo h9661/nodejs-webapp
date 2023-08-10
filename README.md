@@ -15,6 +15,8 @@
 - [x] session store in database
 - [x] auth discord.
 - [x] discord user와 local user 통합
+- [x] passport-google로 구글 로그인 만들어보기.
+- [ ] 로그인 페이지 구현, groceries 페이지 구현하고 리다이렉션?? 그거도 해보기
 - [ ] tdd 경험하기
 
 
@@ -123,3 +125,6 @@ passport.deserializeUser(function(id, done) {
 
 https://tecoble.techcourse.co.kr/post/2021-07-10-understanding-oauth/
 
+13. passport-google
+
+https://millo-l.github.io/Nodejs-passport-Google-OAuth-2-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/

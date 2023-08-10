@@ -7,6 +7,7 @@ const MongoStore = require("connect-mongo");
 require("./database");
 require("./strategies/local");
 require("./strategies/discord");
+require("./strategies/google");
 
 const { groceryRouter } = require("./routes/groceries");
 const { authRouter } = require("./routes/auth");
