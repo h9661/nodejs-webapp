@@ -12,7 +12,8 @@
 - [x] authentication with PassportJS
 - [x] serialize & deserialize User
 - [x] groceries memory based에서 db collection으로 만들기
-- [ ] session stores
+- [x] session store in database
+- [ ] auth discord.
 
 
 # 학습 정리
