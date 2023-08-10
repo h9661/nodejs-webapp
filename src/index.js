@@ -5,7 +5,8 @@ const passport = require("passport");
 const MongoStore = require("connect-mongo");
 
 require("./database");
-require("./strategies/local");
+//require("./strategies/local");
+require("./strategies/discord");
 
 const { groceryRouter } = require("./routes/groceries");
 const { authRouter } = require("./routes/auth");
@@ -29,9 +30,9 @@ app.use((req, res, next) => {
     console.log(`${req.method}:${req.url}`);
     next();
 });
-
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 app.use("/api/v1/auth", authRouter);
 

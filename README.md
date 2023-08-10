@@ -13,7 +13,8 @@
 - [x] serialize & deserialize User
 - [x] groceries memory based에서 db collection으로 만들기
 - [x] session store in database
-- [ ] auth discord.
+- [x] auth discord.
+- [ ] discord user와 local user 통합
 
 
 # 학습 정리
@@ -116,3 +117,6 @@ passport.deserializeUser(function(id, done) {
     });            └──────────────→ user object attaches to the request as req.user
 });
 ```
+
+12. auth란 무엇인가?
+
