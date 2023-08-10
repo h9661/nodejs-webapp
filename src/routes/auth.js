@@ -60,8 +60,7 @@ router.get("/login", (req, res) => {
             res.send(500);
         }
 
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(html);
+        res.status(200).contentType(".html").send(html);
     });
 });
 
