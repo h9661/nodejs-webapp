@@ -2,6 +2,7 @@ const { Router } = require("express");
 const passport = require("passport");
 const User = require("../database/schemas/User");
 const { hashPassword } = require("../utils/helper");
+const fs = require("fs");
 
 const router = Router();
 
@@ -29,27 +30,51 @@ const router = Router();
 //     }
 // });
 
-router.post("/login", passport.authenticate("local"), (req, res) => {
-    console.log("Logged in");
-    res.send(200);
+// router.post("/login", passport.authenticate("local"), (req, res) => {
+//     console.log("Logged in");
+//     res.send(200);
+// });
+
+// router.post("/register", async (req, res) => {
+//     const { username, password, email } = req.body;
+//     const userDB = await User.findOne({ username: username });
+
+//     if (userDB) {
+//         console.log(userDB);
+//         res.status(400).send("user already exists!");
+//     } else {
+//         const hashedPassword = hashPassword(password);
+//         User.create({
+//             username,
+//             password: hashedPassword,
+//             email,
+//         });
+//         res.send(201);
+//     }
+// });
+
+router.get("/login", (req, res) => {
+    fs.readFile("./src/webpages/login.html", (err, html) => {
+        if (err) {
+            console.log(err);
+            res.send(500);
+        }
+
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(html);
+    });
 });
 
-router.post("/register", async (req, res) => {
-    const { username, password, email } = req.body;
-    const userDB = await User.findOne({ username: username });
+router.get("/logout", (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            console.log("logout failed!");
+            console.log(err);
+        }
 
-    if (userDB) {
-        console.log(userDB);
-        res.status(400).send("user already exists!");
-    } else {
-        const hashedPassword = hashPassword(password);
-        User.create({
-            username,
-            password: hashedPassword,
-            email,
-        });
-        res.send(201);
-    }
+        console.log("logOuted!");
+    });
+    res.redirect("back");
 });
 
 router.get("/discord", passport.authenticate("discord"), (req, res) => {

@@ -5,7 +5,7 @@ const passport = require("passport");
 const MongoStore = require("connect-mongo");
 
 require("./database");
-require("./strategies/local");
+//require("./strategies/local");
 require("./strategies/discord");
 require("./strategies/google");
 
@@ -33,7 +33,6 @@ app.use((req, res, next) => {
 });
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 app.use("/api/v1/auth", authRouter);
 
