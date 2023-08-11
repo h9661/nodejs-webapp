@@ -18,7 +18,8 @@
 - [x] passport-google로 구글 로그인 만들어보기.
 - [x] 로그인 페이지 구현, groceries 페이지 구현하고 리다이렉션?? 그거도 해보기
 - [ ] 로그인 성공 시 groceries를 db에서 모두 뽑아내어 출력한 html page로 redirection 시키기.
-- [ ] tdd 경험하기
+- [x] auth/register test 작성하기
+- [ ] auth/google test 작성하기
 
 
 # 학습 정리
@@ -208,3 +209,7 @@ router.get("/logout", (req, res) => {
     res.redirect("back");
 });
 ```
+
+16. jest
+
+https://inpa.tistory.com/entry/JEST-%F0%9F%93%9A-jest-%EB%AC%B8%EB%B2%95-%EC%A0%95%EB%A6%AC

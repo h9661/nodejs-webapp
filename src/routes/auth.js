@@ -3,6 +3,7 @@ const passport = require("passport");
 const User = require("../database/schemas/User");
 const { hashPassword } = require("../utils/helper");
 const fs = require("fs");
+const { authRegisterController } = require("../controllers/auth");
 
 const router = Router();
 
@@ -30,28 +31,12 @@ const router = Router();
 //     }
 // });
 
-// router.post("/login", passport.authenticate("local"), (req, res) => {
-//     console.log("Logged in");
-//     res.send(200);
-// });
+router.post("/login", passport.authenticate("local"), (req, res) => {
+    console.log("Logged in");
+    res.send(200);
+});
 
-// router.post("/register", async (req, res) => {
-//     const { username, password, email } = req.body;
-//     const userDB = await User.findOne({ username: username });
-
-//     if (userDB) {
-//         console.log(userDB);
-//         res.status(400).send("user already exists!");
-//     } else {
-//         const hashedPassword = hashPassword(password);
-//         User.create({
-//             username,
-//             password: hashedPassword,
-//             email,
-//         });
-//         res.send(201);
-//     }
-// });
+router.post("/register", authRegisterController);
 
 router.get("/login", (req, res) => {
     fs.readFile("./src/webpages/login.html", (err, html) => {
