@@ -17,7 +17,8 @@
 - [x] discord user와 local user 통합
 - [x] passport-google로 구글 로그인 만들어보기.
 - [x] 로그인 페이지 구현, groceries 페이지 구현하고 리다이렉션?? 그거도 해보기
-- [ ] 로그인 성공 시 groceries를 db에서 모두 뽑아내어 출력한 html page로 redirection 시키기.
+- [x] 로그인 성공 시 main html page로 redirection (ejs 학습, res.render() 사용. 이거 공부하기)
+- [ ] main page에서 모든 groceries 출력하기
 - [x] auth/register test 작성하기
 - [ ] auth/google test 작성하기
 

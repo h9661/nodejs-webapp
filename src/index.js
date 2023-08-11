@@ -11,10 +11,12 @@ require("./strategies/google");
 
 const { groceryRouter } = require("./routes/groceries");
 const { authRouter } = require("./routes/auth");
+const { indexRouter } = require("./routes/index");
 
 const app = express();
 const port = 3000;
 
+app.set('view endgine', 'ejs');
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -43,7 +45,7 @@ app.use((req, res, next) => {
     if (req.user) next();
     else res.send(401);
 });
-
+app.use("/api/v1/main", indexRouter);
 app.use("/api/v1/groceries", groceryRouter);
 
 app.listen(port, () => {
