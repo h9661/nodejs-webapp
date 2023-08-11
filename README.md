@@ -18,7 +18,7 @@
 - [x] passport-google로 구글 로그인 만들어보기.
 - [x] 로그인 페이지 구현, groceries 페이지 구현하고 리다이렉션?? 그거도 해보기
 - [x] 로그인 성공 시 main html page로 redirection (ejs 학습, res.render() 사용. 이거 공부하기)
-- [ ] main page에서 모든 groceries 출력하기
+- [ ] main page에서 모든 groceries 출력하기 (ejs와 res.render()를 사용하여 처리가 가능하다. 쉬고 쫌이따 해야징)
 - [x] auth/register test 작성하기
 - [ ] auth/google test 작성하기
 
@@ -214,3 +214,88 @@ router.get("/logout", (req, res) => {
 16. jest
 
 https://inpa.tistory.com/entry/JEST-%F0%9F%93%9A-jest-%EB%AC%B8%EB%B2%95-%EC%A0%95%EB%A6%AC
+
+17. ejs, res.render()
+
+Node.js는 서버 사이드 자바스크립트를 구현할 수 있는 도구이며, EJS는 Node.js에서 사용되는 템플릿 엔진 중 하나입니다. EJS는 Embedded JavaScript Templates의 약어로, HTML 템플릿을 사용할 수 있어 웹 개발에 효과적입니다.
+
+EJS는 HTML과 유사한 문법을 사용합니다. HTML 템플릿 안에 <% %>와 같은 EJS 태그를 사용하여 서버 측 로직을 작성할 수 있습니다. EJS는 JavaScript 코드를 사용하여 동적 콘텐츠를 생성할 수 있기 때문에, 클라이언트와 서버 사이드에서 동일한 코드를 사용할 수 있어서 유지 보수가 용이합니다.
+
+## 사용법
+
+EJS를 사용하면 변수를 선언하고, 조건문과 반복문을 작성할 수 있습니다. 이를 통해 HTML 코드를 반복적으로 작성하지 않고도 동적 콘텐츠를 생성할 수 있습니다. 예를 들어, EJS를 사용하여 다음과 같이 반복문을 작성할 수 있습니다.
+
+```jsx
+<ul>
+    <% for(var i=0; i<fruits.length; i++) { %>
+    <li><%= fruits[i] %></li>
+    <% } %>
+</ul>
+```
+
+위 코드에서는 fruits 배열의 모든 요소를 리스트로 출력합니다. EJS는 <%= %> 태그를 사용하여 변수를 출력합니다. 이를 통해 서버 측 데이터를 HTML 코드와 결합하여 동적으로 생성된 콘텐츠를 출력할 수 있습니다.
+
+또한 EJS는 include 문을 사용하여 템플릿을 포함시킬 수 있습니다. 이를 통해 코드의 재사용성을 높일 수 있습니다. 예를 들어, 다음과 같이 템플릿 파일을 생성할 수 있습니다.
+
+```jsx
+*<!-- header.ejs -->*<header>
+        <h1><%= title %></h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+    	</nav>
+</header>
+```
+
+```jsx
+*<!-- index.ejs -->*<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+</head>
+<body>
+    <% include header %>
+    <h2>Welcome to my site!</h2>
+</body>
+</html>
+```
+
+위 코드에서는 include 문을 사용하여 header.ejs 파일을 포함시켰습니다. 이를 통해 index.ejs 파일에서 중복 코드를 제거하고 코드의 가독성과 유지 보수성을 높일 수 있습니다.
+
+ejs에서 JaveScript를 활용하는 방법은 다음과 같다.
+
+- **<%= a %> : a라는 변수 출력**
+- **<% JS 코드 %> : JavaScript 코드 실행**
+
+---
+
+Node.js에서, 서버를 담당하는 entry point는 웹앱의 두뇌라고 할 수 있다.
+
+그리고 그 js파일 상의 로직으로 인해 변경되는 값을 HTML로 즉각 쏴주는 것이 EJS다.
+
+이때 entry point -> EJS로 데이터를 전송하는 역할을 하는 함수가 render() 함수이다.
+
+만약 EJS를 사용하지 않고 기본적인 HTML만을 사용한다면,
+
+클라이언트로부터 온 request에 대한 response를 일일이 send 또는 sendFile 해야할 것이다.
+
+하지만 EJS는 기존 HTML코드와 JavaScript코드의 공존을 통해 효율적인 개발을 도와준다.
+
+```jsx
+const express = require("express");
+
+const bodyParser = request("body-parser");
+
+const app = express();
+
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.post("/", function(req, res) {
+	const userInput = req.body.todo;
+	res.render("todo", {newList: userInput});
+}
+```
