@@ -22,8 +22,8 @@
 - [x] auth/register test 작성하기
 - [x] 로그인 실패시 실패 문구 로그인 페이지에 나오게 하기
 - [x] signin/signout 분리
-- [ ] signin 실패시 왜 실패했는지 보여주기
-- [ ] signup 실패시 왜 실패했는지 보여주기
+- [x] signin 실패시 왜 실패했는지 보여주기
+- [x] signup 실패시 왜 실패했는지 보여주기
 - [ ] auth/google test 작성하기
 
 
@@ -305,12 +305,19 @@ app.post("/", function(req, res) {
 ```
 
 18. ejs에 css 파일 연동시키는 방법. css, js파일 html에 연동시키는 방법
+css 파일은 연동하는 법을 찾았따. js 파일 연동하는 방법은 어떻게 할까? include로 가져올 수 있다고 했는데 jquery가 사용된 문법도 같이 하기엔 조금 그렇다. 그냥 파일 내에 쓰는 것이 지금으로서는 최선이라고 생각한다.
 
-
+https://aspiring-branch-353.notion.site/ejs-1635ac5b2f67434b8ca50298d18310b6?pvs=4
 
 19. jquery, 
 
+jquery를 좀 써봤는데, 정리할정도로 중요한 내용은 아닌 것 같다. 필요할 때만 찾아서 쓰면 될 것 같다.
 
 20. bootstrap
 
+https://inpa.tistory.com/category/Style%20Sheet/Bootstrap5
+
+21. css
+
+https://inpa.tistory.com/category/Style%20Sheet/CSS
 
