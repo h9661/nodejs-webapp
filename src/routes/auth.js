@@ -21,6 +21,10 @@ router.post("/login", (req, res, next) => {
     })(req, res, next);
 });
 
+router.get("/register", (req, res, next) => {
+    res.render("register.ejs");
+});
+
 router.post("/register", authRegisterController);
 
 router.get("/login", (req, res) => {
