@@ -24,6 +24,10 @@
 - [x] signin/signout 분리
 - [x] signin 실패시 왜 실패했는지 보여주기
 - [x] signup 실패시 왜 실패했는지 보여주기
+- [ ] main page bootstrap으로 더 이쁘게? 만들어보고 grocery들을 출력하게 만들자.
+- [ ] grocery를 html page에서 만들 수 있게 하자.(이미지도 등록 가능하게.)
+- [ ] main page에 나오는 grocery들을 이미지 포함하여 출력하게 하자.
+- [ ] ui를 당근마켓 느낌으로다가 하면 괜찮을 것 같다.
 - [ ] auth/google test 작성하기
 
 
