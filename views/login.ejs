@@ -38,17 +38,13 @@
 
                 <!-- Form -->
                 <form action="http://localhost:3000/api/v1/auth/login" method="POST">
-                    <!-- email input -->
+                    <!-- username input -->
                     <div class="first-input input__block first-input__block">
-                        <input type="text" placeholder="username" class="input" id="username" name="username" />
+                        <input type="text" placeholder="username" class="input" name="username" />
                     </div>
                     <!-- password input -->
                     <div class="input__block">
-                        <input type="password" placeholder="Password" class="input" id="password" name="password" />
-                    </div>
-                    <!-- repeat password input -->
-                    <div class="input__block">
-                        <input type="email" placeholder="email" class="input email" id="email" name="email" />
+                        <input type="password" placeholder="Password" class="input" name="password" />
                     </div>
                     <!-- sign in button -->
                     <button class="signin__btn">
@@ -81,36 +77,12 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
     <script id="rendered-js">
         $(document).ready(function () {
-            let signup = $(".links").find("li").find("#signup");
-            let signin = $(".links").find("li").find("#signin");
             let reset = $(".links").find("li").find("#reset");
-            let form = $("form");
-            let first_input = $("form").find(".first-input");
-            let hidden_input = $("form").find(".input__block").find("#email");
-            let signin_btn = $("form").find(".signin__btn");
-
-            //----------- sign in ---------------------
-            signin.on("click", function (e) {
-                e.preventDefault();
-                $(this).parent().parent().siblings("h1").text("SIGN IN");
-                $(this).parent().css("opacity", "1");
-                $(this).parent().siblings().css("opacity", ".6");
-                form.attr('action', 'http://localhost:3000/api/v1/auth/login')
-                first_input.addClass("first-input__block").
-                    removeClass("signup-input__block");
-                hidden_input.css({
-                    "opacity": "0",
-                    "display": "none"
-                });
-
-                signin_btn.text("Sign in");
-            });
 
             //----------- reset ---------------------
             reset.on("click", function (e) {
                 e.preventDefault();
-                $(this).parent().parent().siblings("form").
-                    find(".input__block").find(".input").val("");
+                $(document).find(".input__block").find(".input").val("");
             });
         });
     </script>
