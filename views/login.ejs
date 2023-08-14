@@ -39,7 +39,7 @@
                 <!-- Form -->
                 <form action="http://localhost:3000/api/v1/auth/login" method="POST">
                     <!-- username input -->
-                    <div class="first-input input__block first-input__block">
+                    <div class="input__block">
                         <input type="text" placeholder="username" class="input" name="username" />
                     </div>
                     <!-- password input -->
@@ -64,8 +64,8 @@
                     </button>
                 </form>
 
+                <!-- discord button -->
                 <form action="http://localhost:3000/api/v1/auth/discord" method="GET">
-                    <!-- discord button -->
                     <button class="github__btn">
                         <i class="fa fa-github"></i>
                         Sign in with Discord
@@ -78,12 +78,18 @@
     <script id="rendered-js">
         $(document).ready(function () {
             let reset = $(".links").find("li").find("#reset");
+            let signin = $(".links").find("li").find("#signin");
 
             //----------- reset ---------------------
             reset.on("click", function (e) {
                 e.preventDefault();
                 $(document).find(".input__block").find(".input").val("");
             });
+
+            signin.on("click", (e) => {
+                e.preventDefault();
+            })
+
         });
     </script>
 </body>

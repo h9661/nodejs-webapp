@@ -59,13 +59,17 @@
     <script id="rendered-js">
         $(document).ready(() => {
             let reset = $(".links").find("li").find("#reset");
-
+            let signup = $(".links").find("li").find("#signup");
 
             //----------- reset ---------------------
             reset.on("click", (e) => {
                 e.preventDefault();
                 $(document).find(".input__block").find(".input").val("");
             });
+
+            signup.on("click", (e) => {
+                e.preventDefault();
+            })
         });
     </script>
 
