@@ -18,8 +18,9 @@
 - [x] passport-google로 구글 로그인 만들어보기.
 - [x] 로그인 페이지 구현, groceries 페이지 구현하고 리다이렉션?? 그거도 해보기
 - [x] 로그인 성공 시 main html page로 redirection (ejs 학습, res.render() 사용. 이거 공부하기)
-- [ ] main page에서 모든 groceries 출력하기 (ejs와 res.render()를 사용하여 처리가 가능하다. 쉬고 쫌이따 해야징)
+- [x] main page에서 모든 groceries 출력하기 (ejs와 res.render()를 사용하여 처리가 가능하다. 쉬고 쫌이따 해야징)
 - [x] auth/register test 작성하기
+- [ ] 로그인 실패시 실패 문구 로그인 페이지에 나오게 하기
 - [ ] auth/google test 작성하기
 
 
@@ -299,3 +300,12 @@ app.post("/", function(req, res) {
 	res.render("todo", {newList: userInput});
 }
 ```
+
+18. ejs에 css 파일 연동시키는 방법. css, js파일 html에 연동시키는 방법
+
+
+
+19. jquery, 
+
+
+

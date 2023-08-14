@@ -3,6 +3,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 const MongoStore = require("connect-mongo");
+const bodyParser = require("body-parser");
 
 require("./database");
 require("./strategies/local");
@@ -16,9 +17,11 @@ const { indexRouter } = require("./routes/index");
 const app = express();
 const port = 3000;
 
-app.set('view endgine', 'ejs');
+app.set("view endgine", "ejs");
+app.use(express.static("style"))
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
     session({
         secret: "ABCD",

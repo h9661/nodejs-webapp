@@ -34,15 +34,15 @@ passport.use(
                 if (userDB) {
                     if (comparePassword(password, userDB.password)) {
                         console.log("Authenticated Successfully!");
-                        done(null, userDB);
+                        done(null, userDB, { message: "validated" });
                     } else {
-                        throw new Error("wrong password.");
+                        done(null, false, { message: "invalid password" });
                     }
                 } else {
-                    throw new Error("there is no user info.");
+                    done(null, false, { message: "no user" });
                 }
             } else {
-                throw new Error("Bad Request.");
+                done(null, false, { message: "info invalid" });
             }
         }
     )

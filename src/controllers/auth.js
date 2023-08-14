@@ -7,7 +7,7 @@ async function authRegisterController(req, res) {
 
     if (userDB) {
         console.log(userDB);
-        res.status(400);
+        res.send(400);
         res.send("user already exists!");
     } else {
         const hashedPassword = hashPassword(password);

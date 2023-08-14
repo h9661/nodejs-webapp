@@ -4,7 +4,9 @@ const Grocery = require("../database/schemas/Grocery");
 const router = Router();
 
 router.get("/", async (req, res) => {
-    res.send(await Grocery.find({}));
+    let groceries = await Grocery.find({});
+
+    res.render("groceries.ejs", { groceries: groceries });
 });
 
 router.post("/", async (req, res) => {

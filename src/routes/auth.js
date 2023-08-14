@@ -7,15 +7,21 @@ const { authRegisterController } = require("../controllers/auth");
 
 const router = Router();
 
-router.post("/login", passport.authenticate("local"), (req, res) => {
-    console.log("Logged in");
-    res.send(200);
-});
+router.post(
+    "/login",
+    passport.authenticate("local", {
+        successRedirect: "http://localhost:3000/api/v1/main",
+        failureRedirect: "http://localhost:3000/api/v1/auth",
+        failureMessage: "fail"
+    })
+);
 
 router.post("/register", authRegisterController);
 
 router.get("/", (req, res) => {
-    res.render("login.ejs");
+    const {loginState} = req.query;
+
+    res.render("login.ejs", {loginState: loginState});
 });
 
 router.get("/logout", (req, res) => {
@@ -27,7 +33,7 @@ router.get("/logout", (req, res) => {
 
         console.log("logOuted!");
     });
-    res.redirect("back");
+    res.redirect("http://localhost:3000/api/v1/auth");
 });
 
 router.get("/discord", passport.authenticate("discord"), (req, res) => {
