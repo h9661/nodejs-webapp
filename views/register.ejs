@@ -4,10 +4,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon" type="image/png" href="/icon.jpg" />
+    <link rel="shortcut icon" type="image/x-icon" href="/icon.jpg" />
+    <link rel="mask-icon" type="image/x-icon" href="/icon.jpg" color="#111" />
+    <link rel="stylesheet" type="text/css" href="/fonts.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" type="text/css" href="/login.css">
+
     <title>Register</title>
 </head>
 
 <body>
+    <div class="container">
+        <h1>Resiger form</h1>
+
+        <ul class="links">
+            <li>
+                <a href="#" id="signup">SIGN UP</a>
+            </li>
+            <li>
+                <a href="http://localhost:3000/api/v1/auth/login" id="signin">SIGN IN</a>
+            </li>
+            <li>
+                <a href="#" id="reset">RESET</a>
+            </li>
+        </ul>
+
+        <div class="separator">
+            <p>Write down your User info</p>
+        </div>
+        <!-- Form -->
+        <form action="http://localhost:3000/api/v1/auth/register" method="POST">
+            <!-- username input -->
+            <div class="input__block">
+                <input type="text" placeholder="Username" class="input" id="username" name="username">
+            </div>
+            <!-- password input -->
+            <div class="input__block">
+                <input type="password" placeholder="Password" class="input" name="password">
+            </div>
+            <!-- email input -->
+            <div class="input__block">
+                <input type="email" placeholder="example@example.com" class="input email_visible" name="email">
+            </div>
+            <!-- sign up button -->
+            <button class="signup__btn">
+                Sign Up
+            </button>
+        </form>
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script id="rendered-js">
+        $(document).ready(() => {
+            let reset = $(".links").find("li").find("#reset");
+
+
+            //----------- reset ---------------------
+            reset.on("click", (e) => {
+                e.preventDefault();
+                $(document).find(".input__block").find(".input").val("");
+            });
+        });
+    </script>
 
 </body>
 
