@@ -30,9 +30,9 @@
             </li>
         </ul>
 
-        <% if (errorMessage) { %>
-            <div style="color: red;">
-                <%= errorMessage %>
+        <% if (loginError) { %>
+            <div style="color: red; text-align: center; font-weight: bolder;">
+                <%= "username or password is wrong" %>
             </div>
             <% } %>
 
@@ -88,7 +88,7 @@
 
             signin.on("click", (e) => {
                 e.preventDefault();
-            })
+            });
 
         });
     </script>
