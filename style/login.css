@@ -118,12 +118,19 @@ form .input__block input:active {
     color: #0f132a;
 }
 
-form .input__block input.email {
+form .input__block input.email_invisible {
     opacity: 0;
     display: none;
     transition: 0.2s linear;
 }
 
+form .input__block input.email_visible {
+    opacity: 1;
+    display: block;
+    transition: 0.2s linear;
+}
+
+form .signup__btn,
 form .signin__btn {
     background: #e91e63;
     color: white;
