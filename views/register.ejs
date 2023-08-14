@@ -34,19 +34,36 @@
         <div class="separator">
             <p>Write down your User info</p>
         </div>
+
         <!-- Form -->
         <form action="http://localhost:3000/api/v1/auth/register" method="POST">
             <!-- username input -->
             <div class="input__block">
+                <% if (usernameError) { %>
+                    <div style="color: red; text-align: center; font-weight: bolder;">
+                        <%= "username is not valid" %>
+                    </div>
+                <% } %>
                 <input type="text" placeholder="Username" class="input" id="username" name="username">
             </div>
             <!-- password input -->
             <div class="input__block">
-                <input type="password" placeholder="Password" class="input" name="password">
+                <% if (passwordError) { %>
+                    <div style="color: red; text-align: center; font-weight: bolder;">
+                        <%= "password is not valid" %>
+                    </div>
+                <% } %>
+                <input type="password" placeholder="Password" class="input" id="password" name="password">
             </div>
             <!-- email input -->
             <div class="input__block">
-                <input type="email" placeholder="example@example.com" class="input email_visible" name="email">
+                <% if (emailError) { %>
+                    <div style="color: red; text-align: center; font-weight: bolder;">
+                        <%= "email is not valid" %>
+                    </div>
+                <% } %>
+                <input type="email" placeholder="example@example.com" class="input email_visible" id="email"
+                    name="email">
             </div>
             <!-- sign up button -->
             <button class="signup__btn">
@@ -67,9 +84,10 @@
                 $(document).find(".input__block").find(".input").val("");
             });
 
+            // signup
             signup.on("click", (e) => {
                 e.preventDefault();
-            })
+            });
         });
     </script>
 
