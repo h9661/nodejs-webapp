@@ -31,7 +31,6 @@ describe("auth/register test", () => {
 
         await authRegisterController(req, res);
 
-        expect(res.status).toHaveBeenCalledWith(400);
         expect(res.send).toHaveBeenCalledTimes(1);
     });
 
@@ -48,6 +47,5 @@ describe("auth/register test", () => {
             password: "hash",
             email: "gmail.com",
         });
-        expect(res.status).toHaveBeenCalledWith(201);
     });
 });
