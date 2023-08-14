@@ -1,27 +1,30 @@
 const { Router } = require("express");
 const passport = require("passport");
-const User = require("../database/schemas/User");
-const { hashPassword } = require("../utils/helper");
-const fs = require("fs");
 const { authRegisterController } = require("../controllers/auth");
 
 const router = Router();
 
-router.post(
-    "/login",
-    passport.authenticate("local", {
-        successRedirect: "http://localhost:3000/api/v1/main",
-        failureRedirect: "http://localhost:3000/api/v1/auth",
-        failureMessage: "fail"
-    })
-);
+router.post("/login", (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+        if (user) {
+            req.logIn(user, (err) => {
+                if (err) console.log(err);
+
+                res.redirect("http://localhost:3000/api/v1/main");
+            });
+        } else {
+            console.log(info);
+            res.render("login.ejs", {
+                errorMessage: "username or password is wrong",
+            });
+        }
+    })(req, res, next);
+});
 
 router.post("/register", authRegisterController);
 
-router.get("/", (req, res) => {
-    const {loginState} = req.query;
-
-    res.render("login.ejs", {loginState: loginState});
+router.get("/login", (req, res) => {
+    res.render("login.ejs", { errorMessage: false });
 });
 
 router.get("/logout", (req, res) => {
@@ -33,27 +36,41 @@ router.get("/logout", (req, res) => {
 
         console.log("logOuted!");
     });
-    res.redirect("http://localhost:3000/api/v1/auth");
+    res.redirect("http://localhost:3000/api/v1/auth/login");
 });
 
-router.get("/discord", passport.authenticate("discord"), (req, res) => {
-    res.send(200);
+router.get("/discord", passport.authenticate("discord"));
+
+router.get("/discord/redirect", (req, res, next) => {
+    passport.authenticate("discord", (err, user, info) => {
+        if (user) {
+            req.login(user, (err) => {
+                if (err) console.log(err);
+
+                res.redirect("http://localhost:3000/api/v1/main");
+            });
+        } else {
+            console.log(info);
+            res.redirect("http://localhost:3000/api/v1/auth/login");
+        }
+    })(req, res, next);
 });
 
-router.get(
-    "/discord/redirect",
-    passport.authenticate("discord"),
-    (req, res) => {
-        res.status(200).redirect("http://localhost:3000/api/v1/main");
-    }
-);
+router.get("/google", passport.authenticate("google"));
 
-router.get("/google", passport.authenticate("google"), (req, res) => {
-    res.send(200);
-});
+router.get("/google/redirect", (req, res, next) => {
+    passport.authenticate("google", (err, user, info) => {
+        if (user) {
+            req.login(user, (err) => {
+                if (err) console.log(err);
 
-router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
-    res.status(200).redirect("http://localhost:3000/api/v1/main");
+                res.redirect("http://localhost:3000/api/v1/main");
+            });
+        } else {
+            console.log(info);
+            res.redirect("http://localhost:3000/api/v1/auth/login");
+        }
+    })(req, res, next);
 });
 
 module.exports = {

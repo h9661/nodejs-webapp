@@ -20,7 +20,8 @@
 - [x] 로그인 성공 시 main html page로 redirection (ejs 학습, res.render() 사용. 이거 공부하기)
 - [x] main page에서 모든 groceries 출력하기 (ejs와 res.render()를 사용하여 처리가 가능하다. 쉬고 쫌이따 해야징)
 - [x] auth/register test 작성하기
-- [ ] 로그인 실패시 실패 문구 로그인 페이지에 나오게 하기
+- [x] 로그인 실패시 실패 문구 로그인 페이지에 나오게 하기
+- [ ] signin/signout 분리
 - [ ] auth/google test 작성하기
 
 
