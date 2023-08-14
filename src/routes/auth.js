@@ -14,22 +14,33 @@ router.post("/login", (req, res, next) => {
             });
         } else {
             console.log(info);
-            res.render("login.ejs", {
-                errorMessage: "username or password is wrong",
-            });
+            req.session.loginError = true;
+            res.redirect("http://localhost:3000/api/v1/auth/login")
         }
     })(req, res, next);
 });
 
-router.get("/register", (req, res, next) => {
-    res.render("register.ejs");
+router.get("/login", (req, res) => {
+    const {loginError} = req.session
+    delete req.session.loginError
+
+    res.render("login.ejs", { loginError: loginError });
+});
+
+router.get("/register", (req, res) => {
+    const {registerError} = req.session;
+    
+    if(registerError){
+        var {usernameError, passwordError, emailError} = registerError;
+        console.log(usernameError, passwordError, emailError);
+        delete req.session.registerError;
+    }
+
+    res.render("register.ejs", {usernameError, passwordError, emailError});
 });
 
 router.post("/register", authRegisterController);
 
-router.get("/login", (req, res) => {
-    res.render("login.ejs", { errorMessage: false });
-});
 
 router.get("/logout", (req, res) => {
     req.logout((err) => {
