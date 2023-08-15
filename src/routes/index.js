@@ -4,8 +4,7 @@ const router = Router();
 
 router.get("/", async (req, res) => {
     const groceries = await Grocery.find({});
-    console.log(groceries);
-    res.render("main.ejs");
+    res.render("main.ejs", { groceries: groceries });
 });
 
 module.exports = {
