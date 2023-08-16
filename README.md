@@ -28,7 +28,9 @@
 - [x] main page에서 logout 기능을 만들었다.
 - [x] grocery를 html page에서 만들 수 있게 하자.(이미지도 등록 가능하게.)
 - [x] main page에 나오는 grocery들을 이미지 포함하여 출력하게 하자. (데이터베이스에서 이미지를 저장해야 한다.) <- 권장되지 않는다고 한다. 서버에 이미지를 저장하는 것이 더 좋다고 함. 그래서 그렇게 했음.
-- [ ] grocery를 edit, delete, cart 할 수 있는 기능을 추가하자.
+- [ ] edit grocery
+- [ ] cart grocery
+- [x] delete grocery 등록한 사진 정보도 같이 제거해야 한다.
 - [ ] ui를 당근마켓 느낌으로다가 하면 괜찮을 것 같다.
 - [ ] auth/google test 작성하기
 
@@ -326,4 +328,8 @@ https://inpa.tistory.com/category/Style%20Sheet/Bootstrap5
 21. css
 
 https://inpa.tistory.com/category/Style%20Sheet/CSS
+
+22. multer
+
+23. multipart-data
 
