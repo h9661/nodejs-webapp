@@ -91,13 +91,15 @@
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <form action="">
+                    <form action="http://localhost:3000/api/v1/groceries/edit" method="GET">
+                      <input type="hidden"  name="id" value="<%= groceries[i].id %>">
                       <button type="submit" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </form>
                     <form action="">
                       <button type="submit" class="btn btn-sm btn-outline-secondary">Cart</button>
                     </form>
-                    <form action="http://localhost:3000/api/v1/groceries/delete?id=<%= groceries[i].id %>" method="POST">
+                    <form action="http://localhost:3000/api/v1/groceries/delete" method="POST">
+                      <input type="hidden"  name="id" value="<%= groceries[i].id %>">
                       <button type="submit" class="btn btn-sm btn-outline-secondary">Delete</button>
                     </form>
                   </div>
