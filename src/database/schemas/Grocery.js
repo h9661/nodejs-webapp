@@ -9,6 +9,10 @@ const GrocerySchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.Number,
         required: true,
     },
+    imageURL: {
+        type: String,
+        required: false,
+    },
 });
 
 module.exports = mongoose.model("groceries", GrocerySchema);
