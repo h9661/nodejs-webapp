@@ -31,6 +31,8 @@
 - [x] edit grocery, 사진 바꾸는 것도 만들었음. 미리보기도 만들음.
 - [ ] cart grocery
 - [x] delete grocery 등록한 사진 정보도 같이 제거해야 한다.
+- [ ] groceries를 유저 한명 한명이 갖고 있게 하고싶다. 어떻게 하는지 공부하고 수정하자.
+- [ ] groceries item으로 실시간 동적 검색?? 하는 기능도 만들어보고 싶다. 공부하고 넣어보자. 
 - [ ] ui를 당근마켓 느낌으로다가 하면 괜찮을 것 같다.
 - [ ] auth/google test 작성하기
 
