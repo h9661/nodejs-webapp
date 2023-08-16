@@ -11,13 +11,14 @@ describe("auth/register test", () => {
         body: {
             username: "chanwoo",
             password: "5565",
-            email: "gmail.com",
+            email: "guscksdn@gmail.com",
         },
     };
 
     const res = {
         status: jest.fn((x) => x),
         send: jest.fn((x) => x),
+        redirect: jest.fn((x) => x),
     };
 
     test("should send a status code of 400 when user exists", async () => {
@@ -45,7 +46,7 @@ describe("auth/register test", () => {
         expect(User.create).toHaveBeenCalledWith({
             username: "chanwoo",
             password: "hash",
-            email: "gmail.com",
+            email: "guscksdn@gmail.com",
         });
     });
 });
