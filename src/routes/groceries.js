@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const Grocery = require("../database/schemas/Grocery");
 const multer = require("multer");
+const fs = require("fs");
 
 const router = Router();
 
@@ -68,13 +69,28 @@ router.get("/new", (req, res) => {
 router.post("/new", upload.single("image"), async (req, res) => {
     let { item, quantity } = req.body;
 
+    if (req.file) var { filename } = req.file;
+
     await Grocery.create({
         item: item,
         quantity: quantity,
-        imageURL: req.file.filename,
+        imageURL: filename != undefined ? filename : "default.jpg",
     });
 
-    res.redirect("http://localhost:3000/api/v1/main")
+    res.redirect("http://localhost:3000/api/v1/main");
+});
+
+router.post("/delete", async (req, res) => {
+    let groceryId = req.query.id;
+
+    let grocery = await Grocery.findById(groceryId);
+    let filename = grocery.imageURL;
+
+    await Grocery.deleteOne(grocery);
+
+    if (filename != "default.jpg") fs.unlinkSync(`uploads/images/${filename}`);
+
+    res.redirect("http://localhost:3000/api/v1/main");
 });
 
 module.exports = {
