@@ -31,8 +31,8 @@
 - [x] edit grocery, 사진 바꾸는 것도 만들었음. 미리보기도 만들음.
 - [ ] cart grocery
 - [x] delete grocery 등록한 사진 정보도 같이 제거해야 한다.
-- [ ] groceries를 유저 한명 한명이 갖고 있게 하고싶다. 어떻게 하는지 공부하고 수정하자.
-- [ ] groceries item으로 실시간 동적 검색?? 하는 기능도 만들어보고 싶다. 공부하고 넣어보자. 
+- [ ] groceries를 유저 한명 한명이 갖고 있게 하고싶다. 어떻게 하는지 공부하고 수정하자. 보니까 nosql은 cascade가 없고 join이 없어서 js로 해줘야 하는데 이러면 엄청 느리다고 한다. nosql의 한계이다. 따라서 참조의 방식이 아닌 유저마다 groceries 배열을 들고 가게 해야한다.
+- [ ] groceries item으로 실시간 동적 검색?? 하는 기능도 만들어보고 싶다. 공부하고 넣어보자. 생각해봤는데, 문자를 넣을 때마다 계속해서 검색을 반복하면 될 것 같다. 이거 말고 enter누르면 검색되게 하자. 성능상 이게 훨씬 좋을 것 같다.
 - [ ] ui를 당근마켓 느낌으로다가 하면 괜찮을 것 같다.
 - [ ] auth/google test 작성하기
 
@@ -338,3 +338,5 @@ https://inpa.tistory.com/category/Style%20Sheet/CSS
 24. http get은 body를 보낼 수 없다. query parameter를 통해 데이터를 전달해야 한다.
 
 25. mulipart-data로 form에서 전송하면 json이 아니라서 body에 담기지 않는다. 다른 미들웨어로 먼저 처리하던 json으로 전송하던 해야한다.
+
+26. nosql과 rds의 차이. nosql은 cascade가 없어서 참조로 하면 하나 바꾸면 다 일일이 찾아서 바꿔줘야 한다고 한다. ㅋㅋㅋㅋ mysql 썼엇을 때는 외래키 참조해서 cascade 방식으로 하면 하나 바꾸면 다 바뀌는데 말이다. 정말 엄청나게 큰 차이다. 따라서 nosql은 데이터의 양이 막대하지만 데이터의 삭제나 수정이 잘 일어나지 않는 곳에 적합하고 rds는 수정 삭제가 자주 일어나는(외래키 참조가 많은) db에서 효과적이라고 생각할 수 있겠다.
