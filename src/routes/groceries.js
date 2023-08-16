@@ -1,7 +1,15 @@
 const { Router } = require("express");
 const Grocery = require("../database/schemas/Grocery");
+const multer = require("multer");
 
 const router = Router();
+
+const upload = multer({
+    dest: "uploads/images",
+    limits: {
+        fieldSize: 10 * 1024 * 1024,
+    },
+});
 
 router.get("/", async (req, res) => {
     let groceries = await Grocery.find({});
@@ -53,10 +61,20 @@ router.post("/cart", (req, res) => {
     res.send(201);
 });
 
-router.get("/:item", async (req, res) => {
-    const { item } = req.params;
+router.get("/new", (req, res) => {
+    res.render("makeGrocery.ejs");
+});
 
-    res.send(await Grocery.find({ item: item }));
+router.post("/new", upload.single("image"), async (req, res) => {
+    let { item, quantity } = req.body;
+
+    await Grocery.create({
+        item: item,
+        quantity: quantity,
+        imageURL: req.file.filename,
+    });
+
+    res.redirect("http://localhost:3000/api/v1/main")
 });
 
 module.exports = {
