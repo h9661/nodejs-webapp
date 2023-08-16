@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const Grocery = require("../database/schemas/Grocery");
+const ObjectId = require("mongodb").ObjectId;
 const multer = require("multer");
 const fs = require("fs");
 
@@ -10,20 +11,6 @@ const upload = multer({
     limits: {
         fieldSize: 10 * 1024 * 1024,
     },
-});
-
-router.get("/", async (req, res) => {
-    let groceries = await Grocery.find({});
-
-    res.render("groceries.ejs", { groceries: groceries });
-});
-
-router.post("/", async (req, res) => {
-    const { item, quantity } = req.body;
-    if (item && quantity) {
-        await Grocery.create({ item, quantity });
-        res.sendStatus(201);
-    } else res.sendStatus(401);
 });
 
 router.get("/cart", (req, res) => {
@@ -81,14 +68,64 @@ router.post("/new", upload.single("image"), async (req, res) => {
 });
 
 router.post("/delete", async (req, res) => {
-    let groceryId = req.query.id;
-
+    let groceryId = req.body.id;
     let grocery = await Grocery.findById(groceryId);
-    let filename = grocery.imageURL;
 
-    await Grocery.deleteOne(grocery);
+    if (grocery) {
+        let filename = grocery.imageURL;
 
-    if (filename != "default.jpg") fs.unlinkSync(`uploads/images/${filename}`);
+        await Grocery.deleteOne(grocery);
+
+        if (filename != "default.jpg")
+            fs.unlinkSync(`uploads/images/${filename}`);
+
+        res.redirect("http://localhost:3000/api/v1/main");
+    } else {
+        res.send(400);
+    }
+});
+
+router.get("/edit", async (req, res) => {
+    let groceryId = req.query.id;
+    let grocery = await Grocery.findById(groceryId);
+
+    if (grocery) {
+        res.render("editGrocery.ejs", { grocery: grocery });
+    } else {
+        res.send(400);
+    }
+});
+
+router.post("/edit", upload.single("image"), async (req, res) => {
+    let { id, item, quantity } = req.body;
+
+    if (req.file) {
+        // image 파일이 있을 때
+        // 바꿈
+        let grocery = await Grocery.findById(id);
+        if (grocery.imageURL != "default.jpg")
+            fs.unlinkSync(`uploads/images/${grocery.imageURL}`);
+
+        await Grocery.replaceOne(
+            { _id: new ObjectId(id) },
+            {
+                item: item,
+                quantity: quantity,
+                imageURL: req.file.filename,
+            }
+        );
+    } else {
+        // image 파일이 없을 때
+        // 그대로 유지
+
+        await Grocery.updateOne(
+            { _id: new ObjectId(id) },
+            {
+                item: item,
+                quantity: quantity,
+            }
+        );
+    }
 
     res.redirect("http://localhost:3000/api/v1/main");
 });
