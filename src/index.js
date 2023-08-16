@@ -18,7 +18,8 @@ const app = express();
 const port = 3000;
 
 app.set("view endgine", "ejs");
-app.use(express.static("style"))
+app.use("/css", express.static("style/css"));
+app.use("/images", express.static("uploads/images"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
