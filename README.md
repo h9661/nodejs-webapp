@@ -28,7 +28,7 @@
 - [x] main page에서 logout 기능을 만들었다.
 - [x] grocery를 html page에서 만들 수 있게 하자.(이미지도 등록 가능하게.)
 - [x] main page에 나오는 grocery들을 이미지 포함하여 출력하게 하자. (데이터베이스에서 이미지를 저장해야 한다.) <- 권장되지 않는다고 한다. 서버에 이미지를 저장하는 것이 더 좋다고 함. 그래서 그렇게 했음.
-- [ ] edit grocery
+- [x] edit grocery, 사진 바꾸는 것도 만들었음. 미리보기도 만들음.
 - [ ] cart grocery
 - [x] delete grocery 등록한 사진 정보도 같이 제거해야 한다.
 - [ ] ui를 당근마켓 느낌으로다가 하면 괜찮을 것 같다.
@@ -333,3 +333,6 @@ https://inpa.tistory.com/category/Style%20Sheet/CSS
 
 23. multipart-data
 
+24. http get은 body를 보낼 수 없다. query parameter를 통해 데이터를 전달해야 한다.
+
+25. mulipart-data로 form에서 전송하면 json이 아니라서 body에 담기지 않는다. 다른 미들웨어로 먼저 처리하던 json으로 전송하던 해야한다.
