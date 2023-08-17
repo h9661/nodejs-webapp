@@ -65,9 +65,12 @@
 
       <div class="input-group row-lg-6 row-md-8">
         <form action="http://localhost:3000/api/v1/main" method="GET">
-          <label for="filterItem" class="form-label">filtering by item</label>
+          <label for="filterItem" class="form-label">item</label>
           <input type="text" class="form-control" id="filterItem" name="filterItem">
+          <label for="category" class="form-label">category</label>
+          <%- include('../style/common/option.ejs') %>
           <button type="submit" class="btn btn-primary">submit</button>
+          <button type="reset" class="btn btn-primary">reset</button>
         </form>
       </div>
 
