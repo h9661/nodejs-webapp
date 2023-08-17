@@ -1,5 +1,20 @@
 const mongoose = require("mongoose");
 
+const GrocerySchema = new mongoose.Schema({
+    item: {
+        type: mongoose.SchemaTypes.String,
+        required: true,
+    },
+    quantity: {
+        type: mongoose.SchemaTypes.Number,
+        required: true,
+    },
+    imageURL: {
+        type: String,
+        required: false,
+    },
+});
+
 const UserSchema = new mongoose.Schema({
     username: {
         type: mongoose.SchemaTypes.String,
@@ -19,6 +34,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         default: new Date(),
     },
+    groceries: [GrocerySchema],
 });
 
 module.exports = mongoose.model("users", UserSchema);
