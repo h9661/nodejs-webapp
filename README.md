@@ -334,10 +334,158 @@ https://inpa.tistory.com/category/Style%20Sheet/CSS
 
 22. multer
 
+https://aspiring-branch-353.notion.site/multer-162ff6bf3d084dfcaeb9510e0ce0f548?pvs=4
+
 23. multipart-data
 
+https://aspiring-branch-353.notion.site/http-multipart-form-data-4335952053764214a7611f0bcbdb08bf?pvs=4
+
 24. http get은 body를 보낼 수 없다. query parameter를 통해 데이터를 전달해야 한다.
+
+https://aspiring-branch-353.notion.site/http-get-post-body-query-76fe47a287de4561867a7892ebe2652d?pvs=4
 
 25. mulipart-data로 form에서 전송하면 json이 아니라서 body에 담기지 않는다. 다른 미들웨어로 먼저 처리하던 json으로 전송하던 해야한다.
 
 26. nosql과 rds의 차이. nosql은 cascade가 없어서 참조로 하면 하나 바꾸면 다 일일이 찾아서 바꿔줘야 한다고 한다. ㅋㅋㅋㅋ mysql 썼엇을 때는 외래키 참조해서 cascade 방식으로 하면 하나 바꾸면 다 바뀌는데 말이다. 정말 엄청나게 큰 차이다. 따라서 nosql은 데이터의 양이 막대하지만 데이터의 삭제나 수정이 잘 일어나지 않는 곳에 적합하고 rds는 수정 삭제가 자주 일어나는(외래키 참조가 많은) db에서 효과적이라고 생각할 수 있겠다.
+
+27. ejs파일은 express.static으로 설정이 안되었다. ejs는 할 수 없는 것인가? 찾아보고 정리해야겠다.
+-> 절대경로로 안해서 오류가 난 것 같다. 앞에 __dirname을 붙혀서 절대경로로 사용해야 겠다.
+
+28. 왜인지 moongose의 Map타입은 사용이 안된다. 왜인지 모르겠다. 이 부분 알아볼라고 검색해봤는데 딱히 안나온다..
+
+29. img 태그에서 src를 express.static을 이용하여 불러올 수 있다.
+
+```jsx
+app.use("/images", express.static("/uploads/images"));
+
+<img src="/images/<%= groceries[i].imageURL %>" class="img-fluid rounded-top" width="100%" height="3%" alt="">
+```
+
+30. ejs 파일 어디에서나 `<%= 변수명 >`으로 렌더링 가능하다.
+
+31. `input`태그로 불러온 이미지를 js로 손쉽게 출력 가능하다. 간단한 이벤트를 등록해주면 된다.
+
+```jsx
+  <script>
+    const imageInput = document.getElementById("imageInput");
+    const previewImage = document.getElementById("previewImage");
+    imageInput.addEventListener('change', (e) => {
+        const selectedImage = e.target.files[0];
+        if(selectedImage){
+            previewImage.src = URL.createObjectURL(selectedImage);
+        }else{
+            previewImage.src = "#";
+        }
+    })
+  </script>
+```
+
+createObjectURL이 뭔지 모르니 한번 찾아보자.
+
+URL.createObjectURL() 함수는 웹 플랫폼에서 사용되는 JavaScript 함수로, `브라우저 메모리에서 사용 가능한 Blob, File, MediaSource 또는 다른 미디어 리소스를 가리키는 고유한 URL을 생성`합니다. `이 함수를 사용하면 이러한 리소스를 브라우저에서 직접 다룰 수 있도록 URL로 접근할 수 있습니다.`
+
+이 함수의 일반적인 사용 사례 중 하나는 `이미지, 오디오, 비디오 등의 미디어 파일을 로드하거나 미리보기를 제공할 때 사용`됩니다.
+
+예를 들어, 다음은 URL.createObjectURL() 함수를 사용하여 선택한 파일의 미리보기 이미지를 생성하는 간단한 예제입니다:
+
+```jsx
+<input type="file" id="fileInput">
+<img id="previewImage" src="" alt="Preview Image" style="max-width: 100%;">
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const previewImage = document.getElementById('previewImage');
+
+  fileInput.addEventListener('change', (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      previewImage.src = objectURL;
+    }
+  });
+</script>
+```
+
+위의 코드에서 fileInput 요소의 change 이벤트가 발생하면 선택한 파일을 읽어서 `URL.createObjectURL()` 함수를 사용하여 Blob URL을 생성하고, 생성된 URL을 previewImage 요소의 src 속성에 할당하여 이미지를 표시합니다.
+
+`URL.createObjectURL()` 함수를 사용하면 임시로 URL을 생성하여 브라우저 메모리 내에서 관리되는 리소스에 접근할 수 있게 됩니다. 사용이 끝난 후에는 `URL.revokeObjectURL() `함수를 사용하여 생성된 URL을 해제하여 메모리 누수를 방지해야 합니다.
+
+32. 스키마가 스키마 배열을 갖게 하는 방법
+
+```jsx
+const UserSchema = new mongoose.Schema({
+    username: {
+        type: mongoose.SchemaTypes.String,
+        required: true,
+        unique: true,
+    },
+    password: {
+        type: mongoose.SchemaTypes.String,
+        required: true,
+    },
+    email: {
+        type: mongoose.SchemaTypes.String,
+        required: true,
+    },
+    createdAt: {
+        type: mongoose.SchemaTypes.Date,
+        required: true,
+        default: new Date(),
+    },
+    groceries: [GrocerySchema],
+});
+```
+
+33. 스키마의 프로퍼티가 스키마 배열일 경우 그것의 요소를 삽입/삭제/수정 하는 법
+```jsx
+// insert
+await User.findOneAndUpdate(
+    { _id: new ObjectId(userId) },
+    { $push: { groceries: newGrocery } }
+);
+
+// delete
+await User.findOneAndUpdate(
+    { _id: new ObjectId(userId) },
+    { $pull: { groceries: { _id: new ObjectId(groceryId) } } }
+);
+
+// update
+// update 부분에서 의문점. groceries.$의 의미는 무엇일까?
+await User.findOneAndUpdate(
+    { _id: new ObjectId(userId), "groceries._id": new ObjectId(id) },
+    {
+        $set: {
+            "groceries.$": {
+                item: item,
+                quantity: quantity,
+                category: category,
+                imageURL: req.file.filename,
+            },
+        },
+    }
+);
+```
+찾아보니까 그냥 그 배열의 해당되는 요소를 의미하는 것 같다.
+```jsx
+groceries.$는 MongoDB에서 사용되는 특별한 문법 중 하나로, 배열 내의 특정 요소를 업데이트하거나 참조할 때 사용됩니다. MongoDB의 $ 연산자는 배열의 첫 번째 요소를 나타내는데, 여기서 "첫 번째"는 배열 내에서의 위치 순서를 의미합니다.
+
+위의 코드에서 groceries.$는 groceries 배열 내의 첫 번째 요소를 나타냅니다. 해당 코드는 MongoDB의 findOneAndUpdate() 메서드를 사용하여 User 컬렉션에서 특정 사용자의 groceries 배열 내의 특정 요소를 업데이트하고 있습니다.
+
+구체적으로 설명하자면:
+
+{ _id: new ObjectId(userId), "groceries._id": new ObjectId(id) } 부분은 업데이트할 사용자의 _id와 groceries 배열 내에서 업데이트할 요소의 _id를 지정합니다. 즉, 특정 사용자의 특정 식료품 요소를 찾기 위한 조건을 나타냅니다.
+
+$set 연산자는 업데이트할 필드와 값들을 지정합니다. 이 경우, "groceries.$"는 groceries 배열 내의 특정 요소를 나타내며, 해당 요소의 필드들을 업데이트합니다.
+
+따라서 전체 코드는 특정 사용자의 groceries 배열 내에서 _id가 일치하는 특정 요소의 필드들을 업데이트하는 역할을 합니다. 이러한 코드를 실행하면 MongoDB는 해당 사용자의 groceries 배열 내에서 해당 요소를 찾아서 필드들을 새로운 값으로 업데이트합니다.
+```
+
+34. moongose로 스키마를 받아온 다음 그것으로 find, filter 등의 연산도 가능하다. 사용법은 일반적인 자바스크립트 함수와 같다.
+
+35. ejs 파일을 모듈화하여 중복되는 코드들을 없앨 수 있다.
+
+```jsx
+<%- include("ejs파일 경로") %>
+// 이렇게 하면 ejs 파일이 include 된다.
+```
