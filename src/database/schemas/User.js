@@ -9,6 +9,10 @@ const GrocerySchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.Number,
         required: true,
     },
+    category: {
+        type: mongoose.SchemaTypes.String,
+        required: true,
+    },
     imageURL: {
         type: String,
         required: false,

@@ -55,7 +55,7 @@ router.get("/new", (req, res) => {
 
 router.post("/new", upload.single("image"), async (req, res) => {
     let userId = req.user.id;
-    let { item, quantity } = req.body;
+    let { item, quantity, category } = req.body;
 
     if (req.file) {
         var { filename } = req.file;
@@ -63,6 +63,7 @@ router.post("/new", upload.single("image"), async (req, res) => {
     let newGrocery = {
         item: item,
         quantity: quantity,
+        category: category,
         imageURL: filename != undefined ? filename : "default.jpg",
     };
 
@@ -119,12 +120,10 @@ router.get("/edit", async (req, res) => {
 
 router.post("/edit", upload.single("image"), async (req, res) => {
     let userId = req.user.id;
-    let { id, item, quantity } = req.body;
-    
+    let { id, item, quantity, category } = req.body;
+
     let user = await User.findById(userId);
-    let grocery = await user.groceries.find(
-        (g) => g._id.toString() == id
-    );
+    let grocery = await user.groceries.find((g) => g._id.toString() == id);
 
     if (req.file) {
         // image 파일이 있을 때
@@ -140,6 +139,7 @@ router.post("/edit", upload.single("image"), async (req, res) => {
                     "groceries.$": {
                         item: item,
                         quantity: quantity,
+                        category: category,
                         imageURL: req.file.filename,
                     },
                 },
@@ -156,6 +156,7 @@ router.post("/edit", upload.single("image"), async (req, res) => {
                     "groceries.$": {
                         item: item,
                         quantity: quantity,
+                        category: category,
                         imageURL: grocery.imageURL,
                     },
                 },
