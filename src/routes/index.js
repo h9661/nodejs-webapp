@@ -5,13 +5,13 @@ const router = Router();
 router.get("/", async (req, res) => {
     let userId = req.user.id;
     let user = await User.findById(userId);
-    let { filterItem } = req.query;
-
-    if (filterItem) {
-        const regexForFilterItem = new RegExp(filterItem);
-
-        let groceries = user.groceries.filter((g) =>
-            regexForFilterItem.test(g.item)
+    let { filterItem, category } = req.query;
+    console.log(category);
+    if (filterItem || category) {
+        let groceries = user.groceries.filter(
+            (g) =>
+                new RegExp(filterItem).test(g.item) &&
+                new RegExp(category).test(g.category)
         );
 
         res.render("main.ejs", { groceries: groceries });
