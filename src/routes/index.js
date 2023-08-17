@@ -1,10 +1,13 @@
 const { Router } = require("express");
-const Grocery = require("../database/schemas/Grocery");
+const User = require("../database/schemas/User");
 const router = Router();
 
 router.get("/", async (req, res) => {
-    const groceries = await Grocery.find({});
-    res.render("main.ejs", { groceries: groceries });
+    let userId = req.user.id;
+
+    let user = await User.findById(userId);
+    console.log(user);
+    res.render("main.ejs", {groceries: user.groceries});
 });
 
 module.exports = {
