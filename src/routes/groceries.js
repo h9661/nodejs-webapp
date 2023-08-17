@@ -1,8 +1,8 @@
 const { Router } = require("express");
-const Grocery = require("../database/schemas/Grocery");
 const ObjectId = require("mongodb").ObjectId;
 const multer = require("multer");
 const fs = require("fs");
+const User = require("../database/schemas/User");
 
 const router = Router();
 
@@ -54,27 +54,43 @@ router.get("/new", (req, res) => {
 });
 
 router.post("/new", upload.single("image"), async (req, res) => {
+    let userId = req.user.id;
     let { item, quantity } = req.body;
 
-    if (req.file) var { filename } = req.file;
-
-    await Grocery.create({
+    if (req.file) {
+        var { filename } = req.file;
+    }
+    let newGrocery = {
         item: item,
         quantity: quantity,
         imageURL: filename != undefined ? filename : "default.jpg",
-    });
+    };
+
+    await User.findOneAndUpdate(
+        { _id: new ObjectId(userId) },
+        { $push: { groceries: newGrocery } }
+    );
 
     res.redirect("http://localhost:3000/api/v1/main");
 });
 
 router.post("/delete", async (req, res) => {
+    let userId = req.user.id;
     let groceryId = req.body.id;
-    let grocery = await Grocery.findById(groceryId);
+
+    let user = await User.findById(userId);
+    let grocery = await user.groceries.find(
+        (g) => g._id.toString() == groceryId
+    );
+
+    console.log(grocery);
+    await User.findOneAndUpdate(
+        { _id: new ObjectId(userId) },
+        { $pull: { groceries: { _id: new ObjectId(groceryId) } } }
+    );
 
     if (grocery) {
         let filename = grocery.imageURL;
-
-        await Grocery.deleteOne(grocery);
 
         if (filename != "default.jpg")
             fs.unlinkSync(`uploads/images/${filename}`);
@@ -86,8 +102,13 @@ router.post("/delete", async (req, res) => {
 });
 
 router.get("/edit", async (req, res) => {
+    let userId = req.user.id;
     let groceryId = req.query.id;
-    let grocery = await Grocery.findById(groceryId);
+
+    let user = await User.findById(userId);
+    let grocery = await user.groceries.find(
+        (g) => g._id.toString() == groceryId
+    );
 
     if (grocery) {
         res.render("editGrocery.ejs", { grocery: grocery });
@@ -97,32 +118,47 @@ router.get("/edit", async (req, res) => {
 });
 
 router.post("/edit", upload.single("image"), async (req, res) => {
+    let userId = req.user.id;
     let { id, item, quantity } = req.body;
+    
+    let user = await User.findById(userId);
+    let grocery = await user.groceries.find(
+        (g) => g._id.toString() == id
+    );
 
     if (req.file) {
         // image 파일이 있을 때
         // 바꿈
-        let grocery = await Grocery.findById(id);
+
         if (grocery.imageURL != "default.jpg")
             fs.unlinkSync(`uploads/images/${grocery.imageURL}`);
 
-        await Grocery.replaceOne(
-            { _id: new ObjectId(id) },
+        await User.findOneAndUpdate(
+            { _id: new ObjectId(userId), "groceries._id": new ObjectId(id) },
             {
-                item: item,
-                quantity: quantity,
-                imageURL: req.file.filename,
+                $set: {
+                    "groceries.$": {
+                        item: item,
+                        quantity: quantity,
+                        imageURL: req.file.filename,
+                    },
+                },
             }
         );
     } else {
         // image 파일이 없을 때
         // 그대로 유지
 
-        await Grocery.updateOne(
-            { _id: new ObjectId(id) },
+        await User.findOneAndUpdate(
+            { _id: new ObjectId(userId), "groceries._id": new ObjectId(id) },
             {
-                item: item,
-                quantity: quantity,
+                $set: {
+                    "groceries.$": {
+                        item: item,
+                        quantity: quantity,
+                        imageURL: grocery.imageURL,
+                    },
+                },
             }
         );
     }
